@@ -24,15 +24,19 @@ public class userExpController {
 
     @GetMapping(value = "/{userID}")
     public List<UserExpenseInfo> getUserExpenses(@PathVariable String userID){
-        System.out.println(userID);
         return userExpenseInfoService.getUserInfo(userID);
     }
+
+    @GetMapping(value = "/check/{userID}")
+    public Boolean checkUserExpenses(@PathVariable Long userID){
+        return userExpenseInfoService.checkExpenseInfo(userID);
+    }
+
 
     @PostMapping(value = "/{userID}", consumes = {"application/json"})
     public UserExpenseInfo updateUserExpense(@RequestBody UserExpenseInfo userExpenseInfo){
         return userExpenseInfoService.updateUserInfo(userExpenseInfo);
     }
-
 
     //Adding comment
 

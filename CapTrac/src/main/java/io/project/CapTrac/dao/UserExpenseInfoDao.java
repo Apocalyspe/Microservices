@@ -13,5 +13,4 @@ public interface UserExpenseInfoDao extends JpaRepository<UserExpenseInfo, Long>
     @Query(value = "select * from captrac_db.users_expense b where b.id=?1", nativeQuery = true)
     List<UserExpenseInfo> findByUserID(String userID);
 
-
 }

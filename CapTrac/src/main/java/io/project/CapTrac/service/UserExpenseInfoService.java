@@ -40,6 +40,11 @@ public class UserExpenseInfoService {
         return userExpenseInfoDao.save(userExpenseInfo);
     }
 
-
-
+    //Check if User transactions are present
+    public Boolean checkExpenseInfo(Long userID) {
+        if(userExpenseInfoDao.existsById(userID))
+            return true;
+        else
+            return false;
+    }
 }
