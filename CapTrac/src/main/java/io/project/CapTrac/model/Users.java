@@ -1,15 +1,23 @@
 package io.project.CapTrac.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.List;
 
+@AllArgsConstructor
+@Data
+@NoArgsConstructor
 @Entity
-@Table(name="Users")
+@Table(name = "Users")
 public class Users {
 
 
     @Id
-   // @GeneratedValue(strategy = GenerationType.AUTO)
+    // @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", nullable = false, length = 10)
     private Long userID;
 
@@ -22,33 +30,8 @@ public class Users {
     @Column(name = "EMAILID", unique = true)
     private String email;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
-    private List<UserExpenseInfo> expense;
+    private List<UserExpenseInfo> userExpenseInfos;
 
-
-    public long getUserID() {
-        return userID;
-    }
-    public void setUserID(Long userID) {
-        this.userID = userID;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-    public void setUsername(String username) {
-        this.username = username;
-    }
-    public String getPassword() {
-        return password;
-    }
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    public String getEmail() {
-        return email;
-    }
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }

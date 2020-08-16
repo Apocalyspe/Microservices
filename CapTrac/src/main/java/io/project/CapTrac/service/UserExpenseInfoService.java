@@ -2,11 +2,9 @@ package io.project.CapTrac.service;
 
 import io.project.CapTrac.dao.UserExpenseInfoDao;
 import io.project.CapTrac.model.UserExpenseInfo;
-import io.project.CapTrac.model.Users;
+import io.project.CapTrac.model.UserExpenseInfoList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class UserExpenseInfoService {
@@ -15,36 +13,36 @@ public class UserExpenseInfoService {
     UserExpenseInfoDao userExpenseInfoDao;
 
     //get all users
-    public List<UserExpenseInfo> getUsersInfo(){
-        return userExpenseInfoDao.findAll();
+    public UserExpenseInfoList getUsersInfo() {
+        UserExpenseInfoList userExpenseInfoList = new UserExpenseInfoList();
+        userExpenseInfoList.setUserExpenseInfoList(userExpenseInfoDao.findAll());
+        return userExpenseInfoList;
     }
 
     //get one user
-    public List<UserExpenseInfo> getUserInfo(String userID){
-        System.out.println(userID);
-        return userExpenseInfoDao.findByUserID(userID);
+    public UserExpenseInfoList getUserInfo(Long userID) {
+        UserExpenseInfoList userExpenseInfoList = new UserExpenseInfoList();
+        userExpenseInfoList.setUserExpenseInfoList(userExpenseInfoDao.findByUserID(userID));
+        return userExpenseInfoList;
+    }
+
+    //Testing blah-user
+    public UserExpenseInfoList getBlahInfo(Long userID) {
+        UserExpenseInfoList userExpenseInfoList = new UserExpenseInfoList();
+        userExpenseInfoList.setUserExpenseInfoList(userExpenseInfoDao.findByUserID(userID));
+        return userExpenseInfoList;
     }
 
     //update user expense info
     public UserExpenseInfo updateUserInfo(UserExpenseInfo userExpenseInfo) {
+
         return userExpenseInfoDao.save(userExpenseInfo);
     }
 
     //delete user expense info
-    public void deleteUserExpenseInfo(UserExpenseInfo userExpenseInfo) {
-         userExpenseInfoDao.delete(userExpenseInfo);
+    public void deleteUserExpenseInfo(String transacid) {
+        userExpenseInfoDao.deleteBytransacid(transacid);
     }
 
-    //add user transactions
-    public UserExpenseInfo addUserExpense(UserExpenseInfo userExpenseInfo){
-        return userExpenseInfoDao.save(userExpenseInfo);
-    }
 
-    //Check if User transactions are present
-    public Boolean checkExpenseInfo(Long userID) {
-        if(userExpenseInfoDao.existsById(userID))
-            return true;
-        else
-            return false;
-    }
 }

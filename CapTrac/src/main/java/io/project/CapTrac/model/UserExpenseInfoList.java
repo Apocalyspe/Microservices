@@ -1,16 +1,18 @@
 package io.project.CapTrac.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 import java.util.List;
 
+@AllArgsConstructor
+@Data
+@NoArgsConstructor
 public class UserExpenseInfoList {
 
-    private List<UserExpenseInfo> userExpenseInfo;
+    private List<UserExpenseInfo> userExpenseInfoList;
 
-    public List<UserExpenseInfo> getUserExpenseInfo() {
-        return userExpenseInfo;
-    }
 
-    public void setUserExpenseInfo(List<UserExpenseInfo> userExpenseInfo) {
-        this.userExpenseInfo = userExpenseInfo;
-    }
 }

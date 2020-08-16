@@ -1,13 +1,11 @@
 package io.project.CapTrac.controller;
 
+import io.project.CapTrac.model.UserList;
 import io.project.CapTrac.model.Users;
 import io.project.CapTrac.service.UserService;
-import org.hibernate.annotations.Fetch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
 import java.util.Optional;
 
 
@@ -19,23 +17,23 @@ public class userController {
     @Autowired
     UserService userService;
 
-    @GetMapping(value = "/")
-    public List<Users> userList(){
+    @GetMapping(value = "/", produces = "application/json")
+    public UserList userList() {
         return userService.getUsers();
     }
 
-    @GetMapping(value = "/{userID}")
-    public Optional<Users> getUser(@PathVariable Long userID){
+    @GetMapping(value = "/{userID}", produces = "application/json")
+    public Optional<Users> getUser(@PathVariable Long userID) {
         return userService.getUser(userID);
     }
 
     @PostMapping(value = "/{userID}", consumes = {"application/json"})
-    public Users addUser(@RequestBody Users users){
+    public Users addUser(@RequestBody Users users) {
         return userService.createUser(users);
     }
 
     @PutMapping(value = "/{userID}", consumes = {"application/json"})
-    public Users updateUser(@RequestBody Users users){
+    public Users updateUser(@RequestBody Users users) {
         return userService.createUser(users);
     }
 

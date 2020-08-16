@@ -1,88 +1,45 @@
 package io.project.CapTrac.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
-import java.sql.Date;
+import java.io.Serializable;
+import java.sql.Timestamp;
 
+@AllArgsConstructor
+@Data
+@NoArgsConstructor
 @Entity
-@Table(name="UsersExpense")
-public class UserExpenseInfo {
+@Table(name = "UsersExpense")
+public class UserExpenseInfo implements Serializable {
 
-        @Column(name = "TRANSACID", nullable = false)
-        @Id
-        private String transacid;
+    @Column(name = "TRANSACID", nullable = false)
+    @Id
+    private String transacid;
 
-        @Column(name = "EXPENSETYPE")
-        private String ExpenseType;
+    @Column(name = "EXPENSETYPE")
+    private String ExpenseType;
 
-        @Column(name = "AMOUNT")
-        private float amount;
+    @Column(name = "AMOUNT")
+    private float amount;
 
-        @Column(name = "REMARK")
-        private String Remark;
+    @Column(name = "REMARK")
+    private String Remark;
 
-        @Column(name = "DATE")
-        private Date date;
+    @Column(name = "TIMESTAMP")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
+    private Timestamp timestamp;
 
-        @Column(name = "TOTALEXP")
-        private float totalexpense;
+    @Column(name = "TOTALEXP")
+    private float totalexpense;
 
 
-        @ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name = "ID", nullable = false)
-        private Users user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID", nullable = false)
+    private Users user;
 
-        public Users getUser() {
-        return user;
-         }
 
-        public void setUser(Users user) {
-        this.user = user;
-         }
-
-        public String getTransacid() {
-            return transacid;
-        }
-        public void setTransacid(String transacid) {
-            this.transacid = transacid;
-        }
-        public String getExpenseType() {
-            return ExpenseType;
-        }
-        public void setExpenseType(String expenseType) {
-            ExpenseType = expenseType;
-        }
-        public float getAmount() {
-            return amount;
-        }
-        public void setAmount(float amount) {
-            this.amount = amount;
-        }
-        public String getRemark() {
-            return Remark;
-        }
-        public void setRemark(String remark) {
-            Remark = remark;
-        }
-
-        public Date getDate() {
-            return date;
-        }
-        public void setDate(Date date) {
-            this.date=date;
-        }
-
-        public float getTotalexpense() {
-            return totalexpense;
-        }
-        public void setTotalexpense(float totalexpense) {
-            this.totalexpense = totalexpense;
-        }
-
-        public long getUserID(){
-            return user.getUserID();
-        }
-
-        public String getUserName(){
-            return user.getUsername();
-        }
-    }
+}

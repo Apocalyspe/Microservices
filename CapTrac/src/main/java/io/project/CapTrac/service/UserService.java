@@ -1,6 +1,7 @@
 package io.project.CapTrac.service;
 
 import io.project.CapTrac.dao.UserDao;
+import io.project.CapTrac.model.UserList;
 import io.project.CapTrac.model.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,8 +22,10 @@ public class UserService {
     Users users;
 
     //get all users
-    public List<Users> getUsers(){
-        return userdao.findAll();
+    public UserList getUsers(){
+        UserList userList = new UserList();
+        userList.setUsersList(userdao.findAll());
+        return userList;
     }
 
     //Save or update user

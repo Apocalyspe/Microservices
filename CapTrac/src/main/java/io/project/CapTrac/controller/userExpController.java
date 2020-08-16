@@ -1,12 +1,11 @@
 package io.project.CapTrac.controller;
 
+import com.sun.istack.NotNull;
 import io.project.CapTrac.model.UserExpenseInfo;
-import io.project.CapTrac.model.Users;
+import io.project.CapTrac.model.UserExpenseInfoList;
 import io.project.CapTrac.service.UserExpenseInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
@@ -17,27 +16,33 @@ public class userExpController {
     UserExpenseInfoService userExpenseInfoService;
 
 
-    @GetMapping(value = "/")
-    public List<UserExpenseInfo> getAllExpenses(){
+    @GetMapping(value = "/", produces = "application/json")
+    public UserExpenseInfoList getAllExpenses() {
         return userExpenseInfoService.getUsersInfo();
     }
 
-    @GetMapping(value = "/{userID}")
-    public List<UserExpenseInfo> getUserExpenses(@PathVariable String userID){
+    @GetMapping(value = "/{userID}", produces = "application/json")
+    public UserExpenseInfoList getUserExpenses(@PathVariable Long userID) {
         return userExpenseInfoService.getUserInfo(userID);
     }
 
-    @GetMapping(value = "/check/{userID}")
-    public Boolean checkUserExpenses(@PathVariable Long userID){
-        return userExpenseInfoService.checkExpenseInfo(userID);
+    //Testing blah-user
+    @NotNull
+    @GetMapping(value = "/blah/{userID}", produces = "application/json")
+    public UserExpenseInfoList blahExpenses(@PathVariable Long userID) {
+        return userExpenseInfoService.getBlahInfo(userID);
     }
 
 
     @PostMapping(value = "/{userID}", consumes = {"application/json"})
-    public UserExpenseInfo updateUserExpense(@RequestBody UserExpenseInfo userExpenseInfo){
+    public UserExpenseInfo addUserExpenseInfo(@RequestBody UserExpenseInfo userExpenseInfo) {
         return userExpenseInfoService.updateUserInfo(userExpenseInfo);
     }
 
-    //Adding comment
+    @DeleteMapping(value = "/{transacid}", consumes = {"application/json"})
+    public void deleteExpenseInfo(@PathVariable String transacid) {
+        userExpenseInfoService.deleteUserExpenseInfo(transacid);
+    }
+
 
 }
